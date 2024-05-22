@@ -1,0 +1,50 @@
+{% extends "allocator/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-head"> 
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">Time Table for {{timetable.semester_name}} </h1>               
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End page header -->
+
+<!-- property area -->
+<div class="content-area single-property" style="background-color: #FCFCFC;">&nbsp;
+    <div class="container">   
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                {% for day in timetable.days.all %}
+                    <th scope="col">{{day.day}}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+                {% for dur in durations %}
+                <tr>
+                    <th scope="row">{{dur.start_time}} <br> - <br>{{dur.end_time}}</th>
+                    {% for day in timetable.days.all %}
+                        <td>
+                            {% for lec in day.lectures.all %}
+                                {% if lec.duration == dur %}
+                                    <div class="row"><div class="col-md-6">{{lec.course.course.course_name}} {{lec.course.year}}</div> <div class="col-md-6">{{lec.study_topic}} <br> <small>By {{lec.lecturer}}</small></div></div>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    {% endfor %}
+                  </tr>
+                {% endfor %}
+              
+              
+            </tbody>
+          </table>
+
+    </div>
+</div>
+{% endblock content %}

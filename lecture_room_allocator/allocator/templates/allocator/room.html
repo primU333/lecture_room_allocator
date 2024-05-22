@@ -1,0 +1,203 @@
+{% extends "allocator/base.html" %}
+{% load static %}
+{% block content %}
+<div class="page-head"> 
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">{{room.room_name}}</h1>
+                <span style="color: #f3ba1e; font-weight: bold;">Allocated to somewhere</span>             
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End page header -->
+
+<!-- property area -->
+<div class="content-area single-property" style="background-color: #FCFCFC;">&nbsp;
+    <div class="container">   
+
+        <div class="clearfix padding-top-40" >
+
+            <div class="col-md-8 single-property-content prp-style-2">
+                <div class="">
+                    <div class="row">
+                        <div class="light-slide-item">            
+                            <div class="clearfix">
+                                <div class="favorite-and-print">
+                                    <a class="add-to-fav" href="#login-modal" data-toggle="modal">
+                                        <i class="fa fa-star-o"></i>
+                                    </a>
+                                    <a class="printer-icon " href="javascript:window.print()">
+                                        <i class="fa fa-print"></i> 
+                                    </a>
+                                </div> 
+
+                                <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                                    <li data-thumb="{{room.room_image.url}}"> 
+                                        <img src="{{room.room_image.url}}" />
+                                    </li>
+                                                                         
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-property-wrapper">
+
+                        <div class="section">
+                            <h4 class="s-property-title">Description</h4>
+                            <div class="s-property-content">
+                                <p>{{room.room_description}}</p>
+                            </div>
+                        </div>
+                        <!-- End description area  -->
+
+                        <div class="section additional-details">
+
+                            <h4 class="s-property-title">Additional Details</h4>
+
+                            <ul class="additional-details-list clearfix">
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Room Size</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{room.room_size_in_metres}}</span>
+                                </li>
+
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Room Capacity</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{room.room_capacity}} people</span>
+                                </li>
+
+                                <!-- <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Location</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{room.room_location}}</span>
+                                </li> -->
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Room Type</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{room.room_specification}}</span>
+                                </li>
+
+                                <li>
+                                    <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Allocated To</span>
+                                    <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">{{room.allocated_to}}</span>
+                                </li>
+
+                                
+
+                            </ul>
+                        </div>  
+                        <!-- End additional-details area  -->
+
+                        <div class="section property-features">      
+
+                            <h4 class="s-property-title">Room Reports</h4>                            
+                            <ul>
+                                <li><a href="{% url 'allocator:today_report' room.id %}">Today</a></li>   
+                                <li><a href="{% url 'allocator:yesterday_report' room.id %}">Yesterday</a></li>
+                                <li><a href="{% url 'allocator:week_report' room.id %}">This Week</a></li>
+                                <li><a href="{% url 'allocator:month_report' room.id %}">This Month</a></li>
+                                <li><a href="{% url 'allocator:year_report' room.id %}">This Year</a></li>
+                            </ul>
+
+                        </div>
+                        <!-- End features area  -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 p0">
+                <aside class="sidebar sidebar-property blog-asside-right property-style2">
+                    <div class="dealer-widget">
+                        <div class="dealer-content">
+                            <div class="inner-wrapper">
+                                <div class="single-property-header">                                          
+                                    <h1 class="property-title">{{room.room_name}}</h1>
+                                    <span class="property-price">{{room.room_specification}}</span>
+                                </div>
+
+                                <div class="property-meta entry-meta clearfix ">   
+
+                                    <div class="col-xs-4 col-sm-4 col-md-4 p-b-15">
+                                        <span class="property-info-icon icon-tag">                                                                                      
+                                        </span>
+                                        <span class="property-info-entry">
+                                            <span class="property-info-label">Capacity</span>
+                                            <span class="property-info-value">{{room.room_capacity}}</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-xs-4 col-sm-4 col-md-4 p-b-15">
+                                        <span class="property-info icon-area">
+                                        </span>
+                                        <span class="property-info-entry">
+                                            <span class="property-info-label">Size</span>
+                                            <span class="property-info-value">{{room.room_size_in_metres}}<b class="property-info-unit">Sq Ft</b></span>
+                                        </span>
+                                    </div>
+
+                                    <div class="col-xs-4 col-sm-4 col-md-4 p-b-15">
+                                        <span class="property-info-icon icon-bed">
+                                            <img src="assets/img/icon/bed-orange.png">
+                                        </span>
+                                        <span class="property-info-entry">
+                                            <span class="property-info-label">Bedrooms</span>
+                                            <span class="property-info-value">3</span>
+                                        </span>
+                                    </div>
+
+                                </div>
+                                <div class="dealer-section-space">
+                                    <span>Lecturer</span>
+                                </div>
+                                <div class="clear">
+                                    <div class="col-xs-4 col-sm-4 dealer-face">
+                                        <a href="">
+                                            <img src="assets/img/client-face1.png" class="img-circle">
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-8 col-sm-8 ">
+                                        <h3 class="dealer-name">
+                                            <a href="">Nathan James</a>
+                                            <span>Real Estate Agent</span>        
+                                        </h3>
+                                        <div class="dealer-social-media">
+                                            <a class="twitter" target="_blank" href="">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
+                                            <a class="facebook" target="_blank" href="">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                            <a class="gplus" target="_blank" href="">
+                                                <i class="fa fa-google-plus"></i>
+                                            </a>
+                                            <a class="linkedin" target="_blank" href="">
+                                                <i class="fa fa-linkedin"></i>
+                                            </a> 
+                                            <a class="instagram" target="_blank" href="">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>       
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="clear">
+                                    <ul class="dealer-contacts">                                       
+                                        <li><i class="pe-7s-map-marker strong"> </i> 9089 your adress her</li>
+                                        <li><i class="pe-7s-mail strong"> </i> email@yourcompany.com</li>
+                                        <li><i class="pe-7s-call strong"> </i> +1 908 967 5906</li>
+                                    </ul>
+                                    <p>Duis mollis  blandit tempus porttitor curabiturDuis mollis  blandit tempus porttitor curabitur , est non…</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock content %}

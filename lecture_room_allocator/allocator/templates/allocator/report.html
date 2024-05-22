@@ -1,0 +1,39 @@
+{% extends "allocator/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="page-head"> 
+    <div class="container">
+        <div class="row">
+            <div class="page-head-content">
+                <h1 class="page-title">{{title}}</h1>               
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End page header -->
+
+<!-- property area -->
+<div class="content-area single-property" style="background-color: #FCFCFC;">&nbsp;
+    <div class="container">
+        <ul class="list-group" id="report">
+            {% for report in reports %}
+            <li class="list-group-item">Allocated to : {{report.allocated_to}} from {{report.from_time}} to {{report.to_time}} on {{report.date_generated.date}}</li>
+            {% endfor %}
+          </ul> 
+        
+        <button onclick="print()" class="btn btn-info">Print Report</button>
+        <script>
+            const print = ()=>{
+                var print_page = window.open("");
+                print_page.document.write(document.getElementById("report").innerHTML);
+                print_page.stop();
+                print_page.print();
+                print_page.close();
+
+                // window.print();
+            }
+        </script>
+    </div>
+</div>
+{% endblock content %}
